@@ -8,11 +8,7 @@ html {
 }
 
 .body {
-    position: center;
-    max-width: 800px;
-    margin: auto;
-    padding: 20px;
     font-family: 'Montserrat', sans-serif;
-    line-height: 1.5;
     word-break: break-word;
+    background-color: rgb(236, 234, 234);
 }
