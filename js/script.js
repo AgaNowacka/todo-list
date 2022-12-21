@@ -1,22 +1,10 @@
 {
-    const tasks = [
-        {
-            content: "zrobić zakupy",
-            done: false,
-
-        },
-        {
-            content: "zjeść obiad",
-            done: true,
-        },
-
-    ];
+    const tasks = [];
 
     const addNewTask = (newTaskContent) => {
         tasks.push({
             content: newTaskContent,
         });
-
         render();
     };
 
@@ -30,14 +18,15 @@
         render();
     };
 
-    const bindEvents = () => {
-        const removeButtons = document.querySelectorAll(".js-removeButton");
-        
-        removeButtons.forEach ((removeButton, index) => {
+    const bindRemoveEvents = () => {
+        const removeButtons = document.querySelectorAll(".js-remove");
+
+        removeButtons.forEach((removeButton, taskIndex) => {
             removeButton.addEventListener("click", () => {
-                removeTask(index);
+                removeTask(taskIndex);
             });
         });
+    };
 
         const toggleDoneButtons = document.querySelectorAll(".js-doneButton");
         
