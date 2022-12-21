@@ -28,45 +28,53 @@
         });
     };
 
-        const toggleDoneButtons = document.querySelectorAll(".js-doneButton");
-        
-        toggleDoneButtons.forEach ((toggleDoneButton, index) => {
+    const bindToggleDoneEvents = () => {
+        const toggleDoneButtons = document.querySelectorAll(".js-toggleDone");
+
+        toggleDoneButtons.forEach((toggleDoneButton, taksIndex) => {
             toggleDoneButton.addEventListener("click", () => {
-                toggleTaskDone(index);
+                toggleTaskDone(taksIndex);
             });
         });
 
     };
 
     const render = () => {
-        let htmlString = "";
+        let tasksListHTMLContent = "";
 
         for (const task of tasks) {
-            htmlString += `
-                <li ${task.done ? "style=\"text-decoration: line-through\"" : ""}>
-                    <button class="js-doneButton">zrobione?</button>
-                    <button class="js-removeButton">Usuń</button>
-                    ${task.content}
+            tasksListHTMLContent += `
+                <li class="tasks__item js-task">
+                    <button class="tasks__button tasks__button--toggleDone js-toggleDone">
+                    ${task.done ? "✓" : ""}
+                    </button>
+                    <span class="tasks__content${task.done ? " tasks__content--done" : ""}">${task.content}</span>
+                    <button class="tasks__button tasks__button--remove js-remove">
+                    🗑
+                    </button>
                  </li>
             `;
         }
 
-        
-        document.querySelector(".js-tasks").innerHTML = htmlString;
 
-        bindEvents();
+        document.querySelector(".js-tasks").innerHTML = tasksListHTMLContent;
+
+        bindRemoveEvents();
+        bindToggleDoneEvents();
     };
 
-        const onFormSubmit = (event) => {
+    const onFormSubmit = (event) => {
         event.preventDefault();
 
-        const newTaskContent = document.querySelector(".js-newTask").value.trim();
+        const newTaskElement = document.querySelector(".js-newTask");
+        const newTaskContent = newTaskElement.value.trim();
 
-        if (newTaskContent === "") {
-            return;
+        if (newTaskContent !== "") {
+            addNewTask(newTaskContent);
+            newTaskElement.value = "";
         };
 
-        addNewTask(newTaskContent);
+        newTaskElement.focus();
     };
 
     const init = () => {
